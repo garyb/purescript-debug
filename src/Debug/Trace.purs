@@ -22,3 +22,25 @@ traceShow = traceAny <<< show
 -- | return a value. This will log the value's underlying representation for
 -- | low-level debugging.
 foreign import traceAny :: forall a b. a -> (Unit -> b) -> b
+
+-- | Log any PureScript value to the console and return the unit value of the
+-- | Applicative `a`.
+traceAnyA :: forall a b. (Applicative a) => b -> a Unit
+traceAnyA s = traceAny s \_ -> pure unit
+
+-- | Log a message to the console for debugging purposes and then return the
+-- | unit value of the Applicative `a`.
+-- |
+-- | For example:
+-- | ``` purescript
+-- | doSomething = do
+-- |   traceA "Hello"
+-- |   ... some value or computation ...
+-- | ```
+traceA :: forall a. (Applicative a) => String -> a Unit
+traceA = traceAnyA
+
+-- | Log a `Show`able value to the console for debugging purposes and then
+-- | return the unit value of the Applicative `a`.
+traceShowA :: forall a b. (Show b, Applicative a) => b -> a Unit
+traceShowA = traceAnyA <<< show
