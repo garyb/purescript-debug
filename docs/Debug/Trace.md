@@ -34,4 +34,38 @@ Log any PureScript value to the console for debugging purposes and then
 return a value. This will log the value's underlying representation for
 low-level debugging.
 
+#### `traceAnyA`
+
+``` purescript
+traceAnyA :: forall a b. (Applicative a) => b -> a Unit
+```
+
+Log any PureScript value to the console and return the unit value of the
+Applicative `a`.
+
+#### `traceA`
+
+``` purescript
+traceA :: forall a. (Applicative a) => String -> a Unit
+```
+
+Log a message to the console for debugging purposes and then return the
+unit value of the Applicative `a`.
+
+For example:
+``` purescript
+doSomething = do
+  traceA "Hello"
+  ... some value or computation ...
+```
+
+#### `traceShowA`
+
+``` purescript
+traceShowA :: forall a b. (Show b, Applicative a) => b -> a Unit
+```
+
+Log a `Show`able value to the console for debugging purposes and then
+return the unit value of the Applicative `a`.
+
 
