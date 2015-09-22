@@ -44,3 +44,21 @@ traceA = traceAnyA
 -- | return the unit value of the Applicative `a`.
 traceShowA :: forall a b. (Show b, Applicative a) => b -> a Unit
 traceShowA = traceAnyA <<< show
+
+-- | Log any PureScript value to the console and return it in `Monad`
+-- | useful when one has monadic chains
+-- | ```purescript
+-- | mbArray :: Maybe (Array Int)
+-- | foo :: Int
+-- | foo = fromMaybe zero
+-- |   $ mbArray
+-- |   >>= traceAnyM
+-- |   >>= head
+-- |   >>= traceAnyM
+-- | ```
+traceAnyM :: forall m a. (Monad m) => a -> m a
+traceAnyM s = traceAny s \_ -> pure s
+
+-- | Same as `traceAnyM` but only for `Show`able values
+traceShowM :: forall m a. (Show a, Monad m) => a -> m a
+traceShowM s = traceAny (show s) \_ -> pure s
