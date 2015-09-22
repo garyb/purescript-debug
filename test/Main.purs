@@ -12,3 +12,18 @@ main = do
   pure unit
   traceA "Testing"
   traceAnyA { x: 10 }
+
+  traceAnyM "Testing"
+  effInt >>= traceAnyM >>= eatInt
+  effRec >>= traceAnyM >>= \r -> do
+    traceA r.x
+
+  where
+  effInt :: Eff () Int
+  effInt = pure 0
+
+  effRec :: Eff () _
+  effRec = pure {x : "foo"}
+
+  eatInt :: Int -> Eff () Unit
+  eatInt = const $ pure unit

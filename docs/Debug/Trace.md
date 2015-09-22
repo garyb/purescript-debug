@@ -68,4 +68,30 @@ traceShowA :: forall a b. (Show b, Applicative a) => b -> a Unit
 Log a `Show`able value to the console for debugging purposes and then
 return the unit value of the Applicative `a`.
 
+#### `traceAnyM`
+
+``` purescript
+traceAnyM :: forall m a. (Monad m) => a -> m a
+```
+
+Log any PureScript value to the console and return it in `Monad`
+useful when one has monadic chains
+```purescript
+mbArray :: Maybe (Array Int)
+foo :: Int
+foo = fromMaybe zero
+  $ mbArray
+  >>= traceAnyM
+  >>= head
+  >>= traceAnyM
+```
+
+#### `traceShowM`
+
+``` purescript
+traceShowM :: forall m a. (Show a, Monad m) => a -> m a
+```
+
+Same as `traceAnyM` but only for `Show`able values
+
 
