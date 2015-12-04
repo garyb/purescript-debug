@@ -18,6 +18,8 @@ main = do
   effRec >>= traceAnyM >>= \r -> do
     traceA r.x
 
+  let dummy = spy { foo: 1, bar: [1, 2] }
+  traceAnyA dummy
   where
   effInt :: Eff () Int
   effInt = pure 0
