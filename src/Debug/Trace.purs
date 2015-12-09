@@ -23,6 +23,10 @@ traceShow = traceAny <<< show
 -- | low-level debugging.
 foreign import traceAny :: forall a b. a -> (Unit -> b) -> b
 
+-- | Log any value and return it
+spy :: forall a. a -> a
+spy a = traceAny a \_ -> a
+
 -- | Log any PureScript value to the console and return the unit value of the
 -- | Applicative `a`.
 traceAnyA :: forall a b. (Applicative a) => b -> a Unit
