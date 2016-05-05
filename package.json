@@ -1,13 +1,16 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "pulp dep install",
-    "build": "jshint src && jscs src && pulp test && rimraf docs && pulp docs"
+    "clean": "rimraf output && rimraf .pulp-cache && rimraf .psa-stash",
+    "build": "jshint src && jscs src && pulp build --censor-lib --strict --stash",
+    "test": "pulp test"
   },
   "devDependencies": {
-    "jscs": "^1.13.1",
-    "jshint": "^2.8.0",
-    "pulp": "^4.0.1",
-    "rimraf": "^2.4.1"
+    "jscs": "^2.8.0",
+    "jshint": "^2.9.1",
+    "pulp": "^8.0.0",
+    "purescript-psa": "^0.3.6",
+    "purescript": "^0.8.5",
+    "rimraf": "^2.5.0"
   }
 }

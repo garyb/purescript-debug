@@ -2,9 +2,6 @@
   "name": "purescript-debug",
   "homepage": "https://github.com/garyb/purescript-debug",
   "description": "Console based debugging functions",
-  "keywords": [
-    "purescript"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
