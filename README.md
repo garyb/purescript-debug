@@ -12,6 +12,6 @@ Console based debugging functions.
 bower install purescript-debug
 ```
 
-## Module documentation
+## Documentation
 
-- [Debug.Trace](docs/Debug/Trace.md)
+Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-debug).
