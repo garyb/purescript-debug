@@ -2,7 +2,7 @@
 "use strict";
 
 // Alias require to prevent webpack or browserify from actually requiring.
-var req = require;
+var req = typeof require === 'undefined' ? undefined : require;
 var util = req === undefined ? undefined : req("util");
 
 // module Debug.Trace
