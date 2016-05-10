@@ -1,11 +1,10 @@
-/* global exports, console, require */
 "use strict";
 
-// Alias require to prevent webpack or browserify from actually requiring.
-var req = typeof require === "undefined" ? undefined : require;
-var util = req === undefined ? undefined : req("util");
-
 // module Debug.Trace
+
+// Alias require to prevent webpack or browserify from actually requiring.
+var req = typeof module === "undefined" ? undefined : module.require;
+var util = req === undefined ? undefined : req("util");
 
 exports.traceAny = function (x) {
   return function (k) {
@@ -16,7 +15,6 @@ exports.traceAny = function (x) {
     } else {
       console.log(x);
     }
-
     return k({});
   };
 };
