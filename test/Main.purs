@@ -1,8 +1,8 @@
 module Test.Main where
 
 import Prelude
-import Debug.Trace
-import Control.Monad.Eff
+import Debug.Trace (traceAnyA, spy, traceA, traceAnyM, traceAny, traceShow, trace)
+import Control.Monad.Eff (Eff)
 
 main :: Eff () Unit
 main = do
@@ -24,8 +24,8 @@ main = do
   effInt :: Eff () Int
   effInt = pure 0
 
-  effRec :: Eff () _
-  effRec = pure {x : "foo"}
+  effRec :: Eff () { x :: String }
+  effRec = pure { x : "foo" }
 
   eatInt :: Int -> Eff () Unit
   eatInt = const $ pure unit
