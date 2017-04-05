@@ -46,7 +46,7 @@ traceA = traceAnyA
 
 -- | Log a `Show`able value to the console for debugging purposes and then
 -- | return the unit value of the Applicative `a`.
-traceShowA :: forall a b. (Show b, Applicative a) => b -> a Unit
+traceShowA :: forall a b. Show b => Applicative a => b -> a Unit
 traceShowA = traceAnyA <<< show
 
 -- | Log any PureScript value to the console and return it in `Monad`
@@ -64,5 +64,5 @@ traceAnyM :: forall m a. Monad m => a -> m a
 traceAnyM s = traceAny s \_ -> pure s
 
 -- | Same as `traceAnyM` but only for `Show`able values
-traceShowM :: forall m a. (Show a, Monad m) => a -> m a
+traceShowM :: forall m a. Show a => Monad m => a -> m a
 traceShowM s = traceAny (show s) \_ -> pure s
