@@ -13,7 +13,7 @@ main = do
   traceA "Testing"
   traceAnyA { x: 10 }
 
-  traceAnyM "Testing"
+  void $ traceAnyM "Testing"
   effInt >>= traceAnyM >>= eatInt
   effRec >>= traceAnyM >>= \r -> do
     traceA r.x
