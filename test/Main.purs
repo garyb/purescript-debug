@@ -1,7 +1,7 @@
 module Test.Main where
 
 import Prelude
-import Debug.Trace (traceAnyA, spy, traceA, traceAnyM, traceAny, traceShow, trace)
+import Debug.Trace (showAny, spy, traceA, traceAnyA, traceAnyM, traceAny, traceShow, trace)
 import Control.Monad.Eff (Eff)
 
 main :: Eff () Unit
@@ -9,6 +9,7 @@ main = do
   trace "Testing" \_ ->
   traceShow true \_ ->
   traceAny { x: 10 } \_ ->
+  trace (showAny { y: 10 }) \_ ->
   pure unit
   traceA "Testing"
   traceAnyA { x: 10 }

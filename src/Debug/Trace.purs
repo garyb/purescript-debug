@@ -23,6 +23,8 @@ trace = traceAny
 traceShow :: forall a b. DebugWarning => Show a => a -> (Unit -> b) -> b
 traceShow = traceAny <<< show
 
+foreign import showAny :: forall a. DebugWarning => a -> String
+
 -- | Log any PureScript value to the console for debugging purposes and then
 -- | return a value. This will log the value's underlying representation for
 -- | low-level debugging.
