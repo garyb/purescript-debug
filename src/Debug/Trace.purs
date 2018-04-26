@@ -28,6 +28,22 @@ traceShow = traceAny <<< show
 -- | low-level debugging.
 foreign import traceAny :: forall a b. DebugWarning => a -> (Unit -> b) -> b
 
+-- | Call the JavaScript engine's debugger. There are a couple things to note
+-- | about this:
+-- |
+-- | - The debugger will open inside the `debugger` function, which probably
+-- |   isn't what you want. The call site will be the second entry in the call
+-- |   stack, and from there it'll work as expected.
+-- |
+-- | - This is not necessarily supported in all JavaScript engines. According
+-- |   to the spec, JavaScript engines without debugging functionality will
+-- |   treat this as a no-op.
+foreign import debugger :: forall a. DebugWarning => a -> a
+
+-- | Call `debugger` within an applicative context.
+debuggerA :: forall f a. DebugWarning => Applicative f => a -> f a
+debuggerA = pure <<< debugger
+
 -- | Log any value and return it
 spy :: forall a. DebugWarning => a -> a
 spy a = traceAny a \_ -> a

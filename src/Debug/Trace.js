@@ -18,3 +18,10 @@ exports.traceAny = function () {
     };
   };
 };
+
+exports.debugger = function () {
+  return function (value) {
+    debugger;
+    return value;
+  };
+};
