@@ -2,10 +2,12 @@ module Debug.Trace where
 
 import Prelude
 
+import Prim.TypeError (class Warn, Text)
+
 -- | Nullary class used to raise a custom warning for the debug functions.
 class DebugWarning
 
-instance warn :: Warn "Debug.Trace usage" => DebugWarning
+instance warn :: Warn (Text "Debug.Trace usage") => DebugWarning
 
 -- | Log a message to the console for debugging purposes and then return a
 -- | value. The return value is thunked so it is not evaluated until after the
