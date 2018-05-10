@@ -4,7 +4,7 @@
 var req = typeof module === "undefined" ? undefined : module.require;
 var util = req === undefined ? undefined : req("util");
 
-exports.traceAny = function () {
+exports.trace = function () {
   return function (x) {
     return function (k) {
       // node only recurses two levels into an object before printing
