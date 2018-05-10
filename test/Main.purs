@@ -1,25 +1,30 @@
 module Test.Main where
 
 import Prelude
-import Debug.Trace (traceAnyA, spy, traceA, traceAnyM, traceAny, traceShow, trace)
-import Effect
+import Debug.Trace (spy, trace, traceM)
+import Effect (Effect)
 
 main :: Effect Unit
 main = do
   trace "Testing" \_ ->
-  traceShow true \_ ->
-  traceAny { x: 10 } \_ ->
-  pure unit
-  traceA "Testing"
-  traceAnyA { x: 10 }
+    trace true \_ ->
+      trace { x: 10 } \_ -> do
+        traceM "Testing"
+        traceM { x: 10 }
 
-  void $ traceAnyM "Testing"
-  effInt >>= traceAnyM >>= eatInt
-  effRec >>= traceAnyM >>= \r -> do
-    traceA r.x
+  traceM "Testing"
 
-  let dummy = spy { foo: 1, bar: [1, 2] }
-  traceAnyA dummy
+  effInt
+    >>= spy "i"
+    >>> eatInt
+
+  effRec
+    >>= spy "r"
+    >>> \r -> traceM r.x
+
+  let dummy = spy "dummy" { foo: 1, bar: [1, 2] }
+  traceM dummy
+
   where
   effInt :: Effect Int
   effInt = pure 0

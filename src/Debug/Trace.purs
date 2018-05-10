@@ -3,7 +3,6 @@ module Debug.Trace where
 import Prelude
 
 import Prim.TypeError (class Warn, Text)
-import Record.Unsafe as RU
 
 -- | Nullary class used to raise a custom warning for the debug functions.
 class DebugWarning
@@ -34,5 +33,4 @@ traceM s = do
 -- | traced value. Useful when debugging something in the middle of a
 -- | expression, as you can insert this into the expression without having to
 -- | break it up.
-spy ∷ ∀ a. DebugWarning ⇒ String → a → a
-spy tag a = trace (RU.unsafeSet tag a {}) \_ -> a
+foreign import spy :: forall a. DebugWarning => String -> a -> a

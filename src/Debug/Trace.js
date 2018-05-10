@@ -18,3 +18,16 @@ exports.trace = function () {
     };
   };
 };
+
+exports.spy = function () {
+  return function (tag) {
+    return function (x) {
+      if (util !== undefined) {
+        console.log(tag + ":", util.inspect(x, { depth: null, colors: true }));
+      } else {
+        console.log(tag + ":", x);
+      }
+      return x;
+    };
+  };
+};
