@@ -2,9 +2,9 @@ module Test.Main where
 
 import Prelude
 import Debug.Trace (traceAnyA, spy, traceA, traceAnyM, traceAny, traceShow, trace)
-import Control.Monad.Eff (Eff)
+import Effect
 
-main :: Eff () Unit
+main :: Effect Unit
 main = do
   trace "Testing" \_ ->
   traceShow true \_ ->
@@ -21,11 +21,11 @@ main = do
   let dummy = spy { foo: 1, bar: [1, 2] }
   traceAnyA dummy
   where
-  effInt :: Eff () Int
+  effInt :: Effect Int
   effInt = pure 0
 
-  effRec :: Eff () { x :: String }
+  effRec :: Effect { x :: String }
   effRec = pure { x : "foo" }
 
-  eatInt :: Int -> Eff () Unit
+  eatInt :: Int -> Effect Unit
   eatInt = const $ pure unit
