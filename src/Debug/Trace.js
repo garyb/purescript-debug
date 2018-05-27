@@ -4,7 +4,7 @@
 var req = typeof module === "undefined" ? undefined : module.require;
 var util = req === undefined ? undefined : req("util");
 
-exports.traceAny = function () {
+exports.trace = function () {
   return function (x) {
     return function (k) {
       // node only recurses two levels into an object before printing
@@ -15,6 +15,19 @@ exports.traceAny = function () {
         console.log(x);
       }
       return k({});
+    };
+  };
+};
+
+exports.spy = function () {
+  return function (tag) {
+    return function (x) {
+      if (util !== undefined) {
+        console.log(tag + ":", util.inspect(x, { depth: null, colors: true }));
+      } else {
+        console.log(tag + ":", x);
+      }
+      return x;
     };
   };
 };
