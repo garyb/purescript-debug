@@ -19,6 +19,7 @@
     "purescript-prelude": "^4.0.0"
   },
   "devDependencies": {
-    "purescript-effect": "^2.0.0"
+    "purescript-effect": "^2.0.0",
+    "purescript-exceptions": "^4.0.0"
   }
 }

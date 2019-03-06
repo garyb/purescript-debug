@@ -1,8 +1,11 @@
 module Test.Main where
 
+import Debug.Todo
 import Prelude
+
 import Debug.Trace (spy, trace, traceM)
 import Effect (Effect)
+import Effect.Exception (try)
 
 main :: Effect Unit
 main = do
@@ -24,6 +27,9 @@ main = do
 
   let dummy = spy "dummy" { foo: 1, bar: [1, 2] }
   traceM dummy
+
+  result :: _ String <- try (pure unit >>= \_ -> (???))
+  traceM (show result)
 
   where
   effInt :: Effect Int
