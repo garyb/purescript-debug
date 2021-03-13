@@ -1,7 +1,7 @@
 module Test.Main where
 
 import Prelude
-import Debug.Trace (spy, trace, traceM)
+import Debug (debugger, spy, spyWith, trace, traceM)
 import Effect (Effect)
 
 main :: Effect Unit
@@ -10,7 +10,7 @@ main = do
     trace true \_ ->
       trace { x: 10 } \_ -> do
         traceM "Testing"
-        traceM { x: 10 }
+        traceM (debugger \_ → { x: 10 })
 
   traceM "Testing"
 
@@ -21,6 +21,8 @@ main = do
   effRec
     >>= spy "r"
     >>> \r -> traceM r.x
+
+  void $ spyWith "x" _.x <$> effRec
 
   let dummy = spy "dummy" { foo: 1, bar: [1, 2] }
   traceM dummy
