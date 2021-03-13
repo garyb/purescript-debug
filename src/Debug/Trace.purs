@@ -4,11 +4,12 @@ module Debug.Trace
   , traceM
   , spy
   , spyWith
+  , debugger
   ) where
 
 import Prelude
 
-import Data.Function.Uncurried (Fn2, runFn2)
+import Data.Function.Uncurried (Fn2, Fn1, runFn1, runFn2)
 import Prim.TypeError (class Warn, Text)
 
 -- | Nullary class used to raise a custom warning for the debug functions.
@@ -54,3 +55,16 @@ foreign import _spy :: forall a. Fn2 String a a
 -- | `Array.fromFoldable` here will print it in a more useful form.
 spyWith ∷ ∀ a b. DebugWarning ⇒ String → (a → b) → a → a
 spyWith msg f a = const a (spy msg (f a))
+
+-- | Triggers any available debugging features in the current runtime - in a
+-- | web browser with the debug tools open, this acts like setting a breakpoint
+-- | in the script. If no debugging feature are available nothing will occur,
+-- | although the passed contination will still be evaluated.
+-- |
+-- | Generally this works best by passing in a block of code to debug as the
+-- | continuation argument, as stepping forward in the debugger will then drop
+-- | straight into the passed code block.
+debugger :: forall a. DebugWarning => (Unit → a) -> a
+debugger f = runFn1 _debugger f
+
+foreign import _debugger :: forall a. Fn1 (Unit → a) a

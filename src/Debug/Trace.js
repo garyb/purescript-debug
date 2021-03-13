@@ -29,3 +29,8 @@ exports._spy = function (tag, x) {
   }
   return x;
 };
+
+exports._debugger = function (f) {
+  debugger;
+  return f();
+};

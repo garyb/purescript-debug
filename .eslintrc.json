@@ -27,6 +27,7 @@
     "indent": [2, 2],
     "quotes": [2, "double"],
     "semi": [2, "always"],
-    "no-console": 0
+    "no-console": 0,
+    "no-debugger": 0
   }
 }
