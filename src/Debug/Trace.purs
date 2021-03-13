@@ -3,6 +3,7 @@ module Debug.Trace
   , trace
   , traceM
   , spy
+  , spyWith
   ) where
 
 import Prelude
@@ -46,3 +47,10 @@ spy :: forall a. DebugWarning => String -> a -> a
 spy tag a = runFn2 _spy tag a
 
 foreign import _spy :: forall a. Fn2 String a a
+
+-- | Similar to `spy`, but allows a function to be passed in to alter the value
+-- | that will be printed. Useful in cases where the raw printed form of a value
+-- | is inconvenient to read - for example, when spying on a `Set`, passing
+-- | `Array.fromFoldable` here will print it in a more useful form.
+spyWith ∷ ∀ a b. DebugWarning ⇒ String → (a → b) → a → a
+spyWith msg f a = const a (spy msg (f a))
