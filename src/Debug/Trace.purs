@@ -1,7 +1,13 @@
-module Debug.Trace where
+module Debug.Trace
+  ( class DebugWarning
+  , trace
+  , traceM
+  , spy
+  ) where
 
 import Prelude
 
+import Data.Function.Uncurried (Fn2, runFn2)
 import Prim.TypeError (class Warn, Text)
 
 -- | Nullary class used to raise a custom warning for the debug functions.
@@ -20,7 +26,10 @@ instance warn :: Warn (Text "Debug.Trace usage") => DebugWarning
 -- | ``` purescript
 -- | doSomething = trace "Hello" \_ -> ... some value or computation ...
 -- | ```
-foreign import trace :: forall a b. DebugWarning => a -> (Unit -> b) -> b
+trace :: forall a b. DebugWarning => a -> (Unit -> b) -> b
+trace a k = runFn2 _trace a k
+
+foreign import _trace :: forall a b. Fn2 a (Unit -> b) b
 
 -- | Log any PureScript value to the console and return the unit value of the
 -- | Monad `m`.
@@ -33,4 +42,7 @@ traceM s = do
 -- | traced value. Useful when debugging something in the middle of a
 -- | expression, as you can insert this into the expression without having to
 -- | break it up.
-foreign import spy :: forall a. DebugWarning => String -> a -> a
+spy :: forall a. DebugWarning => String -> a -> a
+spy tag a = runFn2 _spy tag a
+
+foreign import _spy :: forall a. Fn2 String a a
