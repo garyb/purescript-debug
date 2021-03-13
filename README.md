@@ -1,7 +1,7 @@
 # purescript-debug
 
 [![Latest release](http://img.shields.io/github/release/garyb/purescript-debug.svg)](https://github.com/garyb/purescript-debug/releases)
-[![Build Status](https://travis-ci.org/garyb/purescript-debug.svg?branch=master)](https://travis-ci.org/garyb/purescript-debug)
+![Build Status](https://github.com/garyb/purescript-debug/actions/workflows/ci.yml/badge.svg)
 
 Console based debugging functions.
 
