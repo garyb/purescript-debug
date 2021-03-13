@@ -1,4 +1,4 @@
-module Debug.Trace
+module Debug
   ( class DebugWarning
   , trace
   , traceM
@@ -15,7 +15,7 @@ import Prim.TypeError (class Warn, Text)
 -- | Nullary class used to raise a custom warning for the debug functions.
 class DebugWarning
 
-instance warn :: Warn (Text "Debug.Trace usage") => DebugWarning
+instance warn :: Warn (Text "Debug function usage") => DebugWarning
 
 -- | Log any PureScript value to the console for debugging purposes and then
 -- | return a value. This will log the value's underlying representation for
