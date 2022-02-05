@@ -34,3 +34,25 @@ exports._debugger = function (f) {
   debugger;
   return f();
 };
+
+var now = (function () {
+  var perf;
+  if (typeof performance !== "undefined") {
+    // In browsers, `performance` is available in the global context
+    perf = performance;
+  } else if (req) {
+    // In Node, `performance` is an export of `perf_hooks`
+    try { perf = req("perf_hooks").performance; }
+    catch(e) { }
+  }
+
+  return (function() { return (perf || Date).now(); });
+})();
+
+exports._traceTime = function(name, f) {
+  var start = now();
+  var res = f();
+  var end = now();
+  console.log(name + " took " + (end - start) + "ms");
+  return res;
+};
