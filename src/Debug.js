@@ -1,5 +1,3 @@
-"use strict";
-
 // Alias require to prevent webpack or browserify from actually requiring.
 var req = typeof module === "undefined" ? undefined : module.require;
 var util = (function() {
