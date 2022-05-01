@@ -1,31 +1,34 @@
 module Test.Main where
 
 import Prelude
-import Debug (debugger, spy, spyWith, trace, traceM)
+import Debug (debugger, spy, spyWith, trace, traceM, traceTime)
 import Effect (Effect)
 
 main :: Effect Unit
 main = do
-  trace "Testing" \_ ->
-    trace true \_ ->
-      trace { x: 10 } \_ -> do
-        traceM "Testing"
-        traceM (debugger \_ → { x: 10 })
 
-  traceM "Testing"
+  traceTime "Test suite setup" \_ → do
 
-  effInt
-    >>= spy "i"
-    >>> eatInt
+    trace "Testing" \_ ->
+      trace true \_ ->
+        trace { x: 10 } \_ -> do
+          traceM "Testing"
+          traceM (debugger \_ → { x: 10 })
 
-  effRec
-    >>= spy "r"
-    >>> \r -> traceM r.x
+    traceM "Testing"
 
-  void $ spyWith "x" _.x <$> effRec
+    effInt
+      >>= spy "i"
+      >>> eatInt
 
-  let dummy = spy "dummy" { foo: 1, bar: [1, 2] }
-  traceM dummy
+    effRec
+      >>= spy "r"
+      >>> \r -> traceM r.x
+
+    void $ spyWith "x" _.x <$> effRec
+
+    let dummy = spy "dummy" { foo: 1, bar: [1, 2] }
+    traceM dummy
 
   where
   effInt :: Effect Int

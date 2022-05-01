@@ -1,6 +1,6 @@
 // Alias require to prevent webpack or browserify from actually requiring.
-var req = typeof module === "undefined" ? undefined : module.require;
-var util = (function() {
+const req = typeof module === "undefined" ? undefined : module.require;
+const util = (function() {
   try {
     return req === undefined ? undefined : req("util");
   } catch(e) {
@@ -8,7 +8,7 @@ var util = (function() {
   }
 })();
 
-export var _trace = function (x, k) {
+export function _trace(x, k) {
   // node only recurses two levels into an object before printing
   // "[object]" for further objects when using console.log()
   if (util !== undefined) {
@@ -17,23 +17,24 @@ export var _trace = function (x, k) {
     console.log(x);
   }
   return k({});
-};
+}
 
-export var _spy = function (tag, x) {
+export function _spy(tag, x) {
   if (util !== undefined) {
     console.log(tag + ":", util.inspect(x, { depth: null, colors: true }));
   } else {
     console.log(tag + ":", x);
   }
   return x;
-};
+}
 
-export var _debugger = function (f) {
+export function _debugger(f) {
   debugger;
   return f();
-};
 
-var now = (function () {
+}
+
+const now = (function () {
   var perf;
   if (typeof performance !== "undefined") {
     // In browsers, `performance` is available in the global context
@@ -47,10 +48,10 @@ var now = (function () {
   return (function() { return (perf || Date).now(); });
 })();
 
-exports._traceTime = function(name, f) {
+export function _traceTime(name, f) {
   var start = now();
   var res = f();
   var end = now();
   console.log(name + " took " + (end - start) + "ms");
   return res;
-};
+}
