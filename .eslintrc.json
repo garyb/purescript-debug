@@ -30,6 +30,7 @@
     "quotes": [2, "double"],
     "semi": [2, "always"],
     "no-console": 0,
-    "no-debugger": 0
+    "no-debugger": 0,
+    "no-empty": ["error", { "allowEmptyCatch": true }]
   }
 }
