@@ -1,5 +1,3 @@
-"use strict";
-
 // Alias require to prevent webpack or browserify from actually requiring.
 var req = typeof module === "undefined" ? undefined : module.require;
 var util = (function() {
@@ -10,7 +8,7 @@ var util = (function() {
   }
 })();
 
-exports._trace = function (x, k) {
+export var _trace = function (x, k) {
   // node only recurses two levels into an object before printing
   // "[object]" for further objects when using console.log()
   if (util !== undefined) {
@@ -21,7 +19,7 @@ exports._trace = function (x, k) {
   return k({});
 };
 
-exports._spy = function (tag, x) {
+export var _spy = function (tag, x) {
   if (util !== undefined) {
     console.log(tag + ":", util.inspect(x, { depth: null, colors: true }));
   } else {
@@ -30,7 +28,7 @@ exports._spy = function (tag, x) {
   return x;
 };
 
-exports._debugger = function (f) {
+export var _debugger = function (f) {
   debugger;
   return f();
 };
