@@ -6,8 +6,8 @@
     "test": "pulp test"
   },
   "devDependencies": {
-    "eslint": "^7.22.0",
-    "pulp": "^15.0.0",
+    "eslint": "^8.14.0",
+    "pulp": "^16.0.0",
     "purescript-psa": "^0.8.2",
     "rimraf": "^3.0.2"
   }
