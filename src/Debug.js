@@ -31,4 +31,27 @@ export function _spy(tag, x) {
 export function _debugger(f) {
   debugger;
   return f();
+
+}
+
+const now = (function () {
+  var perf;
+  if (typeof performance !== "undefined") {
+    // In browsers, `performance` is available in the global context
+    perf = performance;
+  } else if (req) {
+    // In Node, `performance` is an export of `perf_hooks`
+    try { perf = req("perf_hooks").performance; }
+    catch(e) { }
+  }
+
+  return (function() { return (perf || Date).now(); });
+})();
+
+export function _traceTime(name, f) {
+  var start = now();
+  var res = f();
+  var end = now();
+  console.log(name + " took " + (end - start) + "ms");
+  return res;
 }
