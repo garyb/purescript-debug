@@ -2,6 +2,7 @@ module Debug
   ( class DebugWarning
   , trace
   , traceM
+  , traceTime
   , spy
   , spyWith
   , debugger
@@ -39,6 +40,38 @@ traceM :: forall m a. DebugWarning => Monad m => a -> m Unit
 traceM s = do
   pure unit
   trace s \_ -> pure unit
+
+-- | Measures the time it takes the given function to run and prints it out,
+-- | then returns the function's result. This is handy for diagnosing
+-- | performance problems by wrapping suspected parts of the code in
+-- | `traceTime`.
+-- |
+-- | For example:
+-- | ```purescript
+-- | bunchOfThings =
+-- |   [ traceTime "one" \_ -> one x y
+-- |   , traceTime "two" \_ -> two z
+-- |   , traceTime "three" \_ -> three a b c
+-- |   ]
+-- | ```
+-- |
+-- | Console output would look something like this:
+-- | ```
+-- | one took 3.456ms
+-- | two took 562.0023ms
+-- | three took 42.0111ms
+-- | ```
+-- |
+-- | Note that the timing precision may differ depending on whether the
+-- | Performance API is supported. Where supported (on most modern browsers and
+-- | versions of Node), the Performance API offers timing resolution of 5
+-- | microseconds. Where Performance API is not supported, this function will
+-- | fall back on standard JavaScript Date object, which only offers a
+-- | 1-millisecond resolution.
+traceTime :: forall a. String -> (Unit -> a) -> a
+traceTime = runFn2 _traceTime
+
+foreign import _traceTime :: forall a. Fn2 String (Unit -> a) a
 
 -- | Logs any value and returns it, using a "tag" or key value to annotate the
 -- | traced value. Useful when debugging something in the middle of a
