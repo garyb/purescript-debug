@@ -1,6 +1,6 @@
 // Alias require to prevent webpack or browserify from actually requiring.
-var req = typeof module === "undefined" ? undefined : module.require;
-var util = (function() {
+const req = typeof module === "undefined" ? undefined : module.require;
+const util = (function() {
   try {
     return req === undefined ? undefined : req("util");
   } catch(e) {
