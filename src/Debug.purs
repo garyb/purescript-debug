@@ -68,7 +68,7 @@ traceM s = do
 -- | microseconds. Where Performance API is not supported, this function will
 -- | fall back on standard JavaScript Date object, which only offers a
 -- | 1-millisecond resolution.
-traceTime :: forall a. String -> (Unit -> a) -> a
+traceTime :: forall a. DebugWarning => String -> (Unit -> a) -> a
 traceTime = runFn2 _traceTime
 
 foreign import _traceTime :: forall a. Fn2 String (Unit -> a) a
