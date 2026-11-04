@@ -8,7 +8,7 @@ Console based debugging functions.
 ## Installation
 
 ```
-bower install purescript-debug
+spago install debug
 ```
 
 ## Documentation
