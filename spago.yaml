@@ -1,0 +1,19 @@
+package:
+  name: debug
+  description: Console based debugging functions
+  build:
+    strict: true
+  publish:
+    version: 6.0.3
+    license: MIT
+    location:
+      githubOwner: garyb
+      githubRepo: purescript-debug
+  dependencies:
+    - functions: ">=6.0.0 <7.0.0"
+    - prelude: ">=6.0.0 <7.0.0"
+  test:
+    main: Test.Main
+    dependencies:
+      - effect: ">=4.0.0 <5.0.0"
+workspace: {}
